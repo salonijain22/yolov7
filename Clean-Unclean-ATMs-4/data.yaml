@@ -1,0 +1,13 @@
+names:
+- clean
+- unclean
+nc: 2
+roboflow:
+  license: Private
+  project: clean-unclean-atms
+  url: https://app.roboflow.com/se-92ehm/clean-unclean-atms/4
+  version: 4
+  workspace: se-92ehm
+test: ../test/images
+train: Clean-Unclean-ATMs-4/train/images
+val: Clean-Unclean-ATMs-4/valid/images
