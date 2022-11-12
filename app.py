@@ -8,7 +8,7 @@ import os
 import sys
 sys.path.append('yolov7')
 
-from detect import status,image_stat
+from detect import image_status
 import argparse
 import time
 from pathlib import Path
@@ -31,7 +31,7 @@ app = Flask(__name__)
 uploads_dir = os.path.join(app.instance_path, 'uploads')
 
 os.makedirs(uploads_dir, exist_ok=True)
-
+appstatus=''
 @app.route("/")
 def hello_world():
     return render_template('index.html')
@@ -47,16 +47,14 @@ def detect():
     subprocess.run("ls", shell=True)
     # subprocess.run(['python3', 'detect.py','--weights','runs\train\exp\weights\epoch_001.pt','--conf','0.1' ,'--source', os.path.join(uploads_dir, secure_filename(video.filename))],shell=True)
     subprocess.run(['python','detect.py','--weights','runs/train/exp/weights/epoch_001.pt','--conf','0.1','--source',os.path.join(uploads_dir, secure_filename(video.filename))],shell=True)
-    return secure_filename(video.filename)
+    return image_status
+    # return secure_filename(video.filename)
     # obj = secure_filename(video.filename)
     # print("image_status")
     # return image_status
     
-@app.route("/")
-def image_status():
-    return status
 
-    
+
 
 
 # @app.route("/",methods=["GET"])
