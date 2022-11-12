@@ -14,7 +14,7 @@ from utils.general import check_img_size, check_requirements, check_imshow, non_
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
 
-status=''
+image_status=''
 
 def detect(save_img=False):
     source, weights, view_img, save_txt, imgsz, trace = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
@@ -131,10 +131,8 @@ def detect(save_img=False):
             # Print time (inference + NMS)
                 if f"{n} {names[int(c)]}" .__contains__('unclean') :
                     image_status="UNCLEAN"
-                    status=image_status
                 else:
                     image_status = "CLEAN"
-                    status=image_status
             print(f'{s}Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
 
             # Stream results
@@ -167,8 +165,7 @@ def detect(save_img=False):
         #print(f"Results saved to {save_dir}{s}")
 
     print(f'Done. ({time.time() - t0:.3f}s)')
-   
-
+    return image_status
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -203,4 +200,5 @@ if __name__ == '__main__':
             detect()
             
 def image_stat():
-    return status
+    return image_status
+
