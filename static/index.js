@@ -20,28 +20,45 @@ window.onload = () => {
         success: function (data) {
           console.log(data);
           $("#link").css("visibility", "visible");
-          $("#download").attr("href", "static/" + data);
+          $("#download").attr("href", data);
           console.log(data);
+        // $.get("/").done(function (data) {
+        //   $("#imagebox").attr("src", data);
+        //   console.log("sucesssss", data);
+        // })
         },
       });
     }
   });
-  $("#download").click(() => {
-    $.ajax({
-      url:"/return-files",
-      type:"GET",
-      contentType: false,
-      cache: false,
-      processData: false,
-      async: false,
-      error: function () {
-        console.log("download error");
-      },
-      success: function () {
-        console.log("data");
-      }
-    })
-  })
+  // $("#download").click(() => {
+  //   console.log("click");
+  //   // fetch('/download')
+  //   //   .then(response => {
+  //   //       console.log(response);
+  //   //   })
+  //   //   .then(data=>{
+  //   //     console.log(data);
+  //   //     $("#res").text(data)
+  //   //   })
+  //   //   .catch(error => {
+  //   //     console.log(error);
+  //   //   })
+  //   // $("#res").text(data)
+  //   var datastring = $(this).serialize(); 
+  //   console.log(datastring)
+  //   $.ajax({
+  //     url:"/detect",
+  //     type:"POST",
+  //     // dataType:"text",
+  //     error: function () {
+  //       console.log("download error");
+  //     },
+  //     success: function (data) {
+  //       console.log("data");
+  //       $("#res").text(data)
+  //     }
+  //   })
+  // })
   $("#opencam").click(() => {
     console.log("evoked openCam");
     $.ajax({

@@ -8,7 +8,7 @@ import os
 import sys
 sys.path.append('yolov7')
 
-import detect
+from detect import status,image_stat
 import argparse
 import time
 from pathlib import Path
@@ -36,7 +36,6 @@ os.makedirs(uploads_dir, exist_ok=True)
 def hello_world():
     return render_template('index.html')
 
-
 @app.route("/detect", methods=['POST'])
 def detect():
     if not request.method == "POST":
@@ -48,18 +47,27 @@ def detect():
     subprocess.run("ls", shell=True)
     # subprocess.run(['python3', 'detect.py','--weights','runs\train\exp\weights\epoch_001.pt','--conf','0.1' ,'--source', os.path.join(uploads_dir, secure_filename(video.filename))],shell=True)
     subprocess.run(['python','detect.py','--weights','runs/train/exp/weights/epoch_001.pt','--conf','0.1','--source',os.path.join(uploads_dir, secure_filename(video.filename))],shell=True)
-    return os.path.join(uploads_dir, secure_filename(video.filename))
-    obj = secure_filename(video.filename)
-    return obj
+    return secure_filename(video.filename)
+    # obj = secure_filename(video.filename)
+    # print("image_status")
+    # return image_status
+    
+@app.route("/")
+def image_status():
+    return status
 
-@app.route("/download",methods=["GET"])
-def download():
-    if not request.method=="GET":
-        return
-    list_of_folders = glob.glob('runs/detect/*')
-    latest_folder = max(list_of_folders, key=os.path.getmtime)
-    latest_file = send_file(latest_folder, as_attachment=True)
-    return latest_file
+    
+
+
+# @app.route("/",methods=["GET"])
+# def download_file():
+#     if not request.method=="GET":
+#         return
+#     list_of_folders = glob.glob('runs/detect/*')
+#     latest_folder = max(list_of_folders, key=os.path.getmtime)
+#     latest_file = send_file(latest_folder, as_attachment=True)
+    
+#     return  "CBBA000303082_2.jpg"
     # print("hello")
 
 
